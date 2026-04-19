@@ -22,13 +22,17 @@
       --mist:   #9AAABB;
       --border: #EDE8E0;
       --accent: #2155A3;
-      --t1:     #2155A3;  /* trimester 1 */
-      --t2:     #167A52;  /* trimester 2 */
-      --t3:     #C4620E;  /* trimester 3 */
-      --t4:     #6B31C8;  /* 4th trimester */
+      --t1:     #2155A3;
+      --t2:     #167A52;
+      --t3:     #C4620E;
+      --t4:     #6B31C8;
+      --gutter: 28px;
+      --maxw:   1080px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
 
     body {
       background: var(--cream);
@@ -41,11 +45,25 @@
       text-rendering: optimizeLegibility;
     }
 
-    .container { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+    img { max-width: 100%; height: auto; display: block; }
+    a  { color: inherit; }
+
+    /* Shared container — every section's content lives inside this */
+    .container {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+      width: 100%;
+    }
 
     /* ── Nav ─────────────────────────────────────────────── */
-    nav {
+    .nav {
       padding: 24px 0;
+    }
+    .nav-inner {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 var(--gutter);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -55,84 +73,91 @@
       font-size: 22px;
       color: var(--navy);
       letter-spacing: 0.5px;
-      font-weight: 400;
       text-decoration: none;
     }
     .logo-dot { color: var(--mist); }
-    nav .nav-links { display: flex; gap: 24px; }
-    nav .nav-links a {
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a {
       color: var(--slate);
       text-decoration: none;
       font-size: 14px;
       font-weight: 600;
-      letter-spacing: 0.2px;
     }
-    nav .nav-links a:hover { color: var(--navy); }
+    .nav-links a:hover { color: var(--navy); }
 
-    /* ── Hero ─────────────────────────────────────────────── */
-    .hero {
-      padding: 60px 0 80px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 40px;
-      align-items: center;
-    }
-    @media (min-width: 900px) {
-      .hero {
-        grid-template-columns: 1.1fr 1fr;
-        gap: 60px;
-        padding: 80px 0 120px;
-      }
-    }
-
+    /* ── Typography primitives ───────────────────────────── */
     .eyebrow {
       font-size: 11px;
       letter-spacing: 6px;
       font-weight: 700;
       color: var(--mist);
       text-transform: uppercase;
-      margin-bottom: 22px;
-    }
-    .hero h1 {
-      font-family: Georgia, serif;
-      font-size: clamp(44px, 6vw, 72px);
-      line-height: 1.05;
-      color: var(--navy);
-      letter-spacing: -0.5px;
-      font-weight: 400;
-      margin-bottom: 20px;
-    }
-    .hero h1 em {
-      font-style: italic;
-      color: var(--t1);
     }
     .rule {
       width: 40px;
       height: 2px;
       background: var(--navy);
-      margin: 0 0 28px;
       border-radius: 1px;
     }
-    .hero .lede {
-      font-size: 18px;
+
+    /* ── Hero ─────────────────────────────────────────────── */
+    .hero { padding: 50px 0 70px; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .hero-text .eyebrow { margin-bottom: 22px; }
+    .hero-text h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(40px, 6vw, 68px);
+      line-height: 1.08;
+      color: var(--navy);
+      letter-spacing: -0.5px;
+      font-weight: 400;
+      margin-bottom: 20px;
+    }
+    .hero-text h1 em {
+      font-style: italic;
+      color: var(--t1);
+    }
+    .hero-text .rule { margin: 0 0 26px; }
+    .hero-text .lede {
+      font-size: 17px;
       line-height: 1.65;
       color: var(--slate);
-      max-width: 500px;
-      margin-bottom: 34px;
+      max-width: 480px;
+      margin-bottom: 32px;
+    }
+    .hero-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero-image img {
+      width: 100%;
+      max-width: 420px;
+      filter: drop-shadow(0 20px 40px rgba(27,45,69,0.08));
+    }
+    @media (min-width: 900px) {
+      .hero { padding: 70px 0 110px; }
+      .hero-grid {
+        grid-template-columns: 1.15fr 1fr;
+        gap: 64px;
+      }
     }
 
+    /* ── App Store button ─────────────────────────────────── */
     .appstore-btn {
       display: inline-flex;
       align-items: center;
       gap: 12px;
       background: var(--navy);
       color: #fff;
-      padding: 16px 24px;
+      padding: 15px 22px;
       border-radius: 14px;
       text-decoration: none;
-      font-family: Georgia, serif;
-      font-size: 16px;
-      letter-spacing: 0.3px;
       box-shadow: 0 8px 24px rgba(27,45,69,0.18);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
@@ -140,53 +165,43 @@
       transform: translateY(-2px);
       box-shadow: 0 14px 32px rgba(27,45,69,0.25);
     }
-    .appstore-btn .apple { font-size: 20px; line-height: 1; margin-top: -2px; }
-    .appstore-btn .line1 { font-size: 10px; letter-spacing: 2px; opacity: 0.7; display: block; }
-    .appstore-btn .line2 { font-size: 15px; display: block; }
+    .appstore-btn .apple { font-size: 22px; line-height: 1; }
+    .appstore-btn .label { display: flex; flex-direction: column; text-align: left; line-height: 1.1; }
+    .appstore-btn .label .line1 { font-size: 10px; letter-spacing: 2px; opacity: 0.7; }
+    .appstore-btn .label .line2 { font-family: Georgia, serif; font-size: 16px; }
 
-    .hero-image {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-    .hero-image img {
-      max-width: 100%;
-      width: 420px;
-      height: auto;
-      filter: drop-shadow(0 20px 40px rgba(27,45,69,0.08));
-    }
-
-    /* ── Sections ─────────────────────────────────────────── */
-    section { padding: 80px 0; }
-    @media (min-width: 900px) { section { padding: 110px 0; } }
+    /* ── Shared section layout ────────────────────────────── */
+    .section { padding: 70px 0; }
+    @media (min-width: 900px) { .section { padding: 100px 0; } }
 
     .section-head {
       max-width: 640px;
-      margin-bottom: 48px;
+      margin: 0 auto 44px;
+      text-align: center;
     }
+    .section-head.left { margin-left: 0; margin-right: auto; text-align: left; }
     .section-head h2 {
       font-family: Georgia, serif;
-      font-size: clamp(32px, 4vw, 44px);
+      font-size: clamp(30px, 4vw, 44px);
       line-height: 1.15;
       color: var(--navy);
       letter-spacing: -0.3px;
       font-weight: 400;
-      margin-top: 14px;
-      margin-bottom: 14px;
+      margin: 14px 0 14px;
     }
-    .section-head .rule { margin-top: 20px; margin-bottom: 0; }
+    .section-head.left .rule { margin: 20px 0 0; }
+    .section-head:not(.left) .rule { margin: 20px auto 0; }
 
     /* ── Feature grid ─────────────────────────────────────── */
     .features {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 20px;
+      gap: 18px;
     }
-    @media (min-width: 700px) {
-      .features { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    @media (min-width: 620px) {
+      .features { grid-template-columns: repeat(2, 1fr); gap: 22px; }
     }
-    @media (min-width: 1000px) {
+    @media (min-width: 1020px) {
       .features { grid-template-columns: repeat(4, 1fr); gap: 20px; }
     }
 
@@ -194,7 +209,7 @@
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 26px 22px 24px;
+      padding: 24px 22px 22px;
       transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     }
     .feature:hover {
@@ -202,11 +217,7 @@
       box-shadow: 0 18px 40px rgba(27,45,69,0.08);
       border-color: transparent;
     }
-    .feature img {
-      width: 72px;
-      height: 72px;
-      margin-bottom: 18px;
-    }
+    .feature img { width: 64px; height: 64px; margin-bottom: 16px; }
     .feature-eyebrow {
       font-size: 10px;
       letter-spacing: 2px;
@@ -217,7 +228,7 @@
     }
     .feature h3 {
       font-family: Georgia, serif;
-      font-size: 20px;
+      font-size: 19px;
       color: var(--navy);
       line-height: 1.3;
       margin-bottom: 8px;
@@ -228,95 +239,89 @@
       color: var(--slate);
       line-height: 1.6;
     }
-
     .f1 .feature-eyebrow { color: var(--t1); }
     .f2 .feature-eyebrow { color: var(--t2); }
     .f3 .feature-eyebrow { color: var(--t3); }
     .f4 .feature-eyebrow { color: var(--t4); }
 
-    /* ── Countries band ───────────────────────────────────── */
+    /* ── Countries band (navy inverted block) ─────────────── */
+    .countries-section { padding: 30px 0; }
     .countries-band {
       background: var(--navy);
       color: #fff;
-      padding: 80px 0;
-      margin: 40px 0;
+      padding: 70px var(--gutter);
       border-radius: 28px;
+      text-align: center;
     }
-    .countries-band .container { text-align: center; }
     .countries-band .eyebrow { color: rgba(255,255,255,0.45); }
     .countries-band h2 {
       font-family: Georgia, serif;
       font-size: clamp(28px, 3.5vw, 40px);
       color: #fff;
       font-weight: 400;
-      margin-top: 14px;
-      margin-bottom: 18px;
+      margin: 14px 0 18px;
       letter-spacing: -0.3px;
     }
     .countries-band p {
       color: rgba(255,255,255,0.72);
       font-size: 15px;
       max-width: 540px;
-      margin: 0 auto 40px;
-      line-height: 1.6;
+      margin: 0 auto 36px;
+      line-height: 1.65;
     }
     .flag-row {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 14px 20px;
-      font-size: 40px;
+      gap: 12px 18px;
+      font-size: 38px;
       line-height: 1;
     }
     .flag-row span {
-      display: inline-block;
       padding: 4px;
       transition: transform 0.3s ease;
+      cursor: default;
     }
     .flag-row span:hover { transform: translateY(-4px); }
 
-    /* ── Story section ────────────────────────────────────── */
-    .story {
+    /* ── Story ────────────────────────────────────────────── */
+    .story-grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 40px;
       align-items: center;
     }
     @media (min-width: 900px) {
-      .story { grid-template-columns: 1fr 1.1fr; gap: 60px; }
+      .story-grid { grid-template-columns: 1fr 1.1fr; gap: 64px; }
     }
-    .story-image {
-      display: flex;
-      justify-content: center;
-    }
+    .story-image { display: flex; justify-content: center; }
     .story-image img {
-      max-width: 100%;
-      width: 420px;
-      height: auto;
+      width: 100%;
+      max-width: 380px;
       filter: drop-shadow(0 20px 40px rgba(27,45,69,0.08));
     }
     .story-text h2 {
       font-family: Georgia, serif;
-      font-size: clamp(30px, 4vw, 42px);
+      font-size: clamp(28px, 4vw, 42px);
       color: var(--navy);
       line-height: 1.18;
       font-weight: 400;
       letter-spacing: -0.3px;
-      margin-top: 14px;
-      margin-bottom: 20px;
+      margin: 14px 0 20px;
     }
+    .story-text .rule { margin: 0 0 22px; }
     .story-text p {
       font-size: 16px;
       color: var(--slate);
       line-height: 1.7;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
     .signature {
       font-family: Georgia, serif;
       font-style: italic;
       color: var(--navy);
       font-size: 17px;
-      margin-top: 24px;
+      margin-top: 22px;
     }
     .signature span {
       font-size: 13px;
@@ -327,13 +332,10 @@
     }
 
     /* ── Final CTA ────────────────────────────────────────── */
-    .final {
-      text-align: center;
-      padding: 100px 0 120px;
-    }
+    .final { text-align: center; padding: 90px 0 110px; }
     .final h2 {
       font-family: Georgia, serif;
-      font-size: clamp(36px, 5vw, 56px);
+      font-size: clamp(34px, 5vw, 56px);
       color: var(--navy);
       line-height: 1.1;
       font-weight: 400;
@@ -342,10 +344,10 @@
     }
     .final .rule { margin: 20px auto 26px; }
     .final p {
-      font-size: 17px;
+      font-size: 16px;
       color: var(--slate);
       max-width: 540px;
-      margin: 0 auto 40px;
+      margin: 0 auto 36px;
       line-height: 1.6;
     }
 
@@ -357,23 +359,23 @@
       color: var(--mist);
       font-size: 13px;
     }
-    footer .footer-links {
+    .footer-links {
       display: flex;
       justify-content: center;
-      gap: 20px;
+      gap: 22px;
       margin-bottom: 14px;
       flex-wrap: wrap;
     }
-    footer .footer-links a {
+    .footer-links a {
       color: var(--slate);
       text-decoration: none;
       font-weight: 600;
       font-size: 13px;
     }
-    footer .footer-links a:hover { color: var(--navy); }
+    .footer-links a:hover { color: var(--navy); }
     .heart { color: var(--t3); }
 
-    /* ── Staggered load animation ─────────────────────────── */
+    /* ── Load animation ───────────────────────────────────── */
     @keyframes rise {
       from { opacity: 0; transform: translateY(14px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -389,47 +391,49 @@
 <body>
 
   <!-- ── Nav ───────────────────────────────────────────── -->
-  <nav>
-    <div class="container" style="display: flex; align-items: center; justify-content: space-between; padding: 0 28px; margin: 0 auto; max-width: 1080px;">
+  <header class="nav">
+    <div class="nav-inner">
       <a href="/" class="logo">Papa<span class="logo-dot">.</span></a>
-      <div class="nav-links">
+      <nav class="nav-links">
         <a href="/privacy/">Privacy</a>
         <a href="/terms/">Terms</a>
-      </div>
+      </nav>
     </div>
-  </nav>
+  </header>
 
   <!-- ── Hero ──────────────────────────────────────────── -->
   <section class="hero">
-    <div class="container" style="display: contents;">
-      <div>
-        <div class="eyebrow animate d1">PAPA · FOR FIRST-TIME DADS</div>
-        <h1 class="animate d2">
-          The first nine months,<br>
-          <em>made for dads.</em>
-        </h1>
-        <div class="rule animate d3"></div>
-        <p class="lede animate d3">
-          Papa is a weekly companion for first-time fathers — clear guidance through pregnancy, birth, and the first three months, with honest writing and country-specific practical help.
-        </p>
-        <a href="#download" class="appstore-btn animate d4">
-          <span class="apple">&#63743;</span>
-          <span>
-            <span class="line1">DOWNLOAD ON THE</span>
-            <span class="line2">App Store</span>
-          </span>
-        </a>
-      </div>
-      <div class="hero-image animate d5">
-        <img src="/img/meet.png" alt="A new family">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <div class="eyebrow animate d1">PAPA · FOR FIRST-TIME DADS</div>
+          <h1 class="animate d2">
+            The first nine months,<br>
+            <em>made for dads.</em>
+          </h1>
+          <div class="rule animate d3"></div>
+          <p class="lede animate d3">
+            Papa is a weekly companion for first-time fathers — clear guidance through pregnancy, birth, and the first three months, with honest writing and country-specific practical help.
+          </p>
+          <a href="#download" class="appstore-btn animate d4">
+            <span class="apple">&#63743;</span>
+            <span class="label">
+              <span class="line1">DOWNLOAD ON THE</span>
+              <span class="line2">App Store</span>
+            </span>
+          </a>
+        </div>
+        <div class="hero-image animate d5">
+          <img src="/img/meet.png" alt="A new family together">
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ── Features ──────────────────────────────────────── -->
-  <section>
+  <section class="section">
     <div class="container">
-      <div class="section-head">
+      <div class="section-head left">
         <div class="eyebrow">WHAT YOU GET</div>
         <h2>A guide that actually<br>speaks to you.</h2>
         <div class="rule"></div>
@@ -446,7 +450,7 @@
           <img src="/img/checklist.png" alt="">
           <div class="feature-eyebrow">CHECKLIST</div>
           <h3>Full checklist, your country</h3>
-          <p>Birth registration, paternity leave, buying guides — customised for the Netherlands, US, UK, France, and 8 more countries.</p>
+          <p>Birth registration, paternity leave, buying guides — customised for the Netherlands, US, UK, France, and more.</p>
         </div>
         <div class="feature f3">
           <img src="/img/stroller.png" alt="">
@@ -458,42 +462,40 @@
           <img src="/img/phone.png" alt="">
           <div class="feature-eyebrow">WARNING SIGNS</div>
           <h3>Know when to call</h3>
-          <p>Pregnancy red flags, labour triggers, postpartum signals — and when to ring the doctor versus when to relax.</p>
+          <p>Pregnancy red flags, labour triggers, postpartum signals — and when to ring the doctor versus relax.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ── Countries band ─────────────────────────────────── -->
-  <section style="padding: 40px 0;">
-    <div class="container" style="padding: 0;">
+  <section class="countries-section">
+    <div class="container">
       <div class="countries-band">
-        <div class="container">
-          <div class="eyebrow">LOCAL BY DESIGN</div>
-          <h2>Built for where you live</h2>
-          <p>Kraamzorg in the Netherlands, FMLA in the US, Elterngeld in Germany. Each locale is written from the inside — not translated from a template.</p>
-          <div class="flag-row">
-            <span title="Netherlands">🇳🇱</span>
-            <span title="United States">🇺🇸</span>
-            <span title="United Kingdom">🇬🇧</span>
-            <span title="France">🇫🇷</span>
-            <span title="Germany">🇩🇪</span>
-            <span title="Italy">🇮🇹</span>
-            <span title="Spain">🇪🇸</span>
-            <span title="Brazil">🇧🇷</span>
-            <span title="Mexico">🇲🇽</span>
-            <span title="Canada">🇨🇦</span>
-            <span title="Australia">🇦🇺</span>
-          </div>
+        <div class="eyebrow">LOCAL BY DESIGN</div>
+        <h2>Built for where you live</h2>
+        <p>Kraamzorg in the Netherlands, FMLA in the US, Elterngeld in Germany. Each locale is written from the inside — not translated from a template.</p>
+        <div class="flag-row">
+          <span title="Netherlands">🇳🇱</span>
+          <span title="United States">🇺🇸</span>
+          <span title="United Kingdom">🇬🇧</span>
+          <span title="France">🇫🇷</span>
+          <span title="Germany">🇩🇪</span>
+          <span title="Italy">🇮🇹</span>
+          <span title="Spain">🇪🇸</span>
+          <span title="Brazil">🇧🇷</span>
+          <span title="Mexico">🇲🇽</span>
+          <span title="Canada">🇨🇦</span>
+          <span title="Australia">🇦🇺</span>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ── Story ──────────────────────────────────────────── -->
-  <section>
+  <section class="section">
     <div class="container">
-      <div class="story">
+      <div class="story-grid">
         <div class="story-image">
           <img src="/img/couple.png" alt="Cem, Yekbun and Levi">
         </div>
@@ -501,15 +503,9 @@
           <div class="eyebrow">OUR STORY</div>
           <h2>Made by a dad,<br>for dads.</h2>
           <div class="rule"></div>
-          <p>
-            Hi, I'm Cem. I built Papa while my wife Yekbun was pregnant with our first son, Levi.
-          </p>
-          <p>
-            We're an expat couple in the Netherlands. Our first pregnancy was an incredible ride — and also a confusing one. The Dutch system is brilliant, but nobody tells you how it works. Every app out there spoke to mothers. None of them spoke to first-time dads trying to figure out kraamzorg, geboorteverlof, and what the hell a combinatietest is.
-          </p>
-          <p>
-            I made Papa because I wished I'd had it myself.
-          </p>
+          <p>Hi, I'm Cem. I built Papa while my wife Yekbun was pregnant with our first son, Levi.</p>
+          <p>We're an expat couple in the Netherlands. Our first pregnancy was an incredible ride — and also a confusing one. The Dutch system is brilliant, but nobody tells you how it works. Every app out there spoke to mothers. None of them spoke to first-time dads trying to figure out kraamzorg, geboorteverlof, and what the hell a combinatietest is.</p>
+          <p>I made Papa because I wished I'd had it myself.</p>
           <p class="signature">Made with love in Amsterdam. <span>— Cem, Yekbun &amp; Levi</span></p>
         </div>
       </div>
@@ -524,7 +520,7 @@
       <p>7-day free trial. Cancel anytime. Available on iPhone.</p>
       <a href="#" class="appstore-btn">
         <span class="apple">&#63743;</span>
-        <span>
+        <span class="label">
           <span class="line1">DOWNLOAD ON THE</span>
           <span class="line2">App Store</span>
         </span>
