@@ -12,6 +12,7 @@
   <meta property="og:url" content="https://papa.cafe">
   <meta property="og:image" content="https://papa.cafe/img/meet.png">
   <link rel="icon" type="image/png" href="/img/app-icon.png">
+  <meta name="apple-itunes-app" content="app-id=6762532552">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -576,6 +577,48 @@
       font-weight: 700;
     }
 
+    /* ── Download row (App Store button + QR on desktop) ──── */
+    .download-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+    .qr-divider {
+      font-family: 'Fraunces', Georgia, serif;
+      font-style: italic;
+      color: var(--mist);
+      font-size: 15px;
+      letter-spacing: 0.3px;
+    }
+    .qr-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      transition: transform 0.2s ease;
+    }
+    .qr-card:hover { transform: translateY(-2px); }
+    .qr-card img {
+      width: 116px;
+      height: auto;
+      display: block;
+    }
+    .qr-card .qr-caption {
+      font-family: 'Manrope', sans-serif;
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--mist);
+      font-weight: 700;
+    }
+    /* QR is useless on phones — hide */
+    @media (max-width: 720px) {
+      .qr-card, .qr-divider { display: none; }
+    }
+
     /* ── Footer ───────────────────────────────────────────── */
     footer {
       padding: 44px 0 64px;
@@ -658,7 +701,7 @@
             Nine months through the first three, one week at a time.
           </p>
           <div class="cta-group animate d4">
-            <a href="#download" class="appstore-btn">
+            <a href="https://apps.apple.com/us/app/papa-pregnancy-for-dads/id6762532552" class="appstore-btn">
               <span class="apple">&#63743;</span>
               <span class="label">
                 <span class="line1">DOWNLOAD ON THE</span>
@@ -804,13 +847,20 @@
       <h2 style="margin-top: 14px;">Your companion<br>for the <em>biggest nine months.</em></h2>
       <div class="rule"></div>
       <p>Start the 7-day free trial. No card needed. Cancel anytime. Available on iPhone.</p>
-      <a href="#" class="appstore-btn">
-        <span class="apple">&#63743;</span>
-        <span class="label">
-          <span class="line1">DOWNLOAD ON THE</span>
-          <span class="line2">App Store</span>
-        </span>
-      </a>
+      <div class="download-row">
+        <a href="https://apps.apple.com/us/app/papa-pregnancy-for-dads/id6762532552" class="appstore-btn">
+          <span class="apple">&#63743;</span>
+          <span class="label">
+            <span class="line1">DOWNLOAD ON THE</span>
+            <span class="line2">App Store</span>
+          </span>
+        </a>
+        <span class="qr-divider">or</span>
+        <a href="https://apps.apple.com/us/app/papa-pregnancy-for-dads/id6762532552" class="qr-card" aria-label="Scan to install Papa from the App Store">
+          <img src="/img/qr-appstore.png" alt="QR code linking to Papa on the App Store">
+          <span class="qr-caption">Scan with your phone</span>
+        </a>
+      </div>
       <div class="cta-meta">12 countries · 12 languages · Private by design</div>
     </div>
   </section>
